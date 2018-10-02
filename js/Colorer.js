@@ -4,7 +4,7 @@
  * For image color manipulation
  * 
  */
- class Colorer {
+class Colorer {
 
     constructor(img) {
         this.img = img;
@@ -19,38 +19,41 @@
      * entire palette with its complementary colors
      */
     Palette() {
+        const self = this;
         Vibrant.from(this.img).getPalette(function(err, palette) {
-
-            let div = document.getElementById('colors');
-            let title = document.getElementById('title');
 
             Object.entries(palette).forEach(function(color) {
 
                 // type from vibrant - vibrant, muted etc
-                const type  = color[0];
-                const rgb   = color[1];
+                const type = color[0];
+                const rgb = color[1];
 
                 if (palette.hasOwnProperty(type) && palette[type]) {
 
                     if (type == 'Vibrant') {
-                        title.style.color = $c.complement(palette[type].getHex());
-
+                        document.getElementById('title').style.color = $c.complement(palette[type].getHex());
                     }
 
-                    let newDiv = document.createElement("newDiv");
-
-                    newDiv.style.width = "100px";
-                    newDiv.style.height = "100px";
-                    newDiv.style.padding = "15px";
-                    newDiv.style.backgroundColor = palette[type].getHex();
-                    newDiv.style.color = $c.complement(palette[type].getHex());
-                    newDiv.innerHTML = type + ' - ' + palette[type].getHex();
-                    div.appendChild(newDiv);
-
+                    self.CreatePalette(palette[type].getHex(), type);
                 }
+
             });
 
         });
+    }
+
+    CreatePalette(hex, type) {
+        const div = document.getElementById('colors');
+        const newDiv = document.createElement("newDiv");
+
+        newDiv.style.width = "100px";
+        newDiv.style.height = "100px";
+        newDiv.style.padding = "15px";
+        newDiv.style.backgroundColor = hex;
+        newDiv.style.color = $c.complement(hex);
+        newDiv.innerHTML = type + ' - ' + hex;
+        div.appendChild(newDiv);
+
     }
 
 }
