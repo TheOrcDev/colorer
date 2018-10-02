@@ -30,6 +30,7 @@ class Colorer {
                 if (palette.hasOwnProperty(type) && palette[type]) {
                     
                     const title = document.getElementById('title');
+                    
                     switch (type) {
         
                       case 'LightMuted':
@@ -43,7 +44,7 @@ class Colorer {
                         title.style.filter = "grayscale(40%)";
                         title.style.filter = "brightness(120%)";
                         title.style.filter = "contrast(200%)";
-                        
+
                     }
 
                     self.CreatePalette(palette[type].getHex(), type);
