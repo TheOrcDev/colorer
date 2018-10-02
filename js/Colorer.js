@@ -14,9 +14,7 @@ class Colorer {
 
     /**
      * Palette 
-     *
-     * Getting color palette from an image, and returning 
-     * entire palette with its complementary colors
+     * Getting color palette from an image
      */
     Palette() {
         const self = this;
@@ -24,14 +22,28 @@ class Colorer {
 
             Object.entries(palette).forEach(function(color) {
 
-                // type from vibrant - vibrant, muted etc
+                // type from vibrant - Vibrant, Muted etc
                 const type = color[0];
                 const rgb = color[1];
 
+                
                 if (palette.hasOwnProperty(type) && palette[type]) {
+                    
+                    const title = document.getElementById('title');
+                    switch (type) {
+        
+                      case 'LightMuted':
+                        title.style.color = $c.complement(palette[type].getHex());
+                        break;
 
-                    if (type == 'Vibrant') {
-                        document.getElementById('title').style.color = $c.complement(palette[type].getHex());
+                      case 'DarkMuted':
+                        title.style.color = palette['Vibrant'].getHex();
+
+                      default:
+                        title.style.filter = "grayscale(40%)";
+                        title.style.filter = "brightness(120%)";
+                        title.style.filter = "contrast(200%)";
+                        
                     }
 
                     self.CreatePalette(palette[type].getHex(), type);
@@ -42,6 +54,10 @@ class Colorer {
         });
     }
 
+    /**
+     * Palette 
+     * Returning entire palette with its complementary colors
+     */
     CreatePalette(hex, type) {
         const div = document.getElementById('colors');
         const newDiv = document.createElement("newDiv");
