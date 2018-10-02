@@ -8,6 +8,8 @@
 
     constructor(img) {
         this.img = img;
+
+        document.getElementById('palette-img').src = this.img;
     }
 
     /**
